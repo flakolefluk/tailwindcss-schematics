@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "tailwind-ng-add-schematic",
+    "title": "Add tailwind to angular project",
+    "type": "object",
+    "properties": {
+      "project": {
+        "type": "string",
+        "description": "The name of the project."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  }
