@@ -2,8 +2,9 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "ng-add": {
-      "description": "Adds tailwind to an Angular project",
-      "factory": "./ng-add/index#ngAdd"
+      "description": "Adds tailwindCSS to an Angular project",
+      "factory": "./ng-add/index#ngAdd",
+      "schema": "./ng-add/schema.json"
     }
   }
 }

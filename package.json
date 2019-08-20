@@ -1,7 +1,7 @@
 {
-  "name": "tailwind",
+  "name": "tailwind-schematics",
   "version": "0.0.0",
-  "description": "A blank schematics",
+  "description": "TailwindCSS schematics for angular",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js"
@@ -20,5 +20,7 @@
     "jasmine": "^3.3.1",
     "typescript": "~3.4.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@schematics/angular": "^8.2.2"
+  }
 }
