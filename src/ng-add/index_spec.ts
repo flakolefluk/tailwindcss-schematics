@@ -3,8 +3,10 @@ import {
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
 import * as path from 'path';
+import { Tree } from '@angular-devkit/schematics';
 
 const collectionPath = path.join(__dirname, '../collection.json');
+const runner = new SchematicTestRunner('schematics', collectionPath);
 
 describe('ng-add', () => {
   const workspaceOptions = {
@@ -23,11 +25,9 @@ describe('ng-add', () => {
     skipPackageJson: false,
   };
 
-  const runner = new SchematicTestRunner('schematics', collectionPath);
-
   let sourceTree: UnitTestTree;
 
-  describe('CSS', () => {
+  describe('when in an angular workspace', () => {
     beforeEach(async () => {
       sourceTree = await runner
         .runExternalSchematicAsync(
@@ -46,111 +46,39 @@ describe('ng-add', () => {
         .toPromise();
     });
 
-    it('works', () => {
-      const tree = runner.runSchematic(
+    it('schedules two tasks by default', () => {
+      runner.runSchematic('ng-add', { project: 'testApp' }, sourceTree);
+      expect(runner.tasks.length).toBe(2);
+      expect(runner.tasks.some(task => task.name === 'run-schematic')).toBe(
+        true,
+      );
+      expect(runner.tasks.some(task => task.name === 'node-package')).toBe(
+        true,
+      );
+    });
+
+    it('will not install dependencies if skipInstall is true', () => {
+      runner.runSchematic(
         'ng-add',
-        { project: 'testApp' },
+        { project: 'testApp', skipInstall: true },
         sourceTree,
       );
-
-      expect(tree.files).toContain('/projects/testApp/tailwind.config.js');
-      expect(tree.files).toContain('/projects/testApp/webpack-prod.config.js');
-      expect(tree.files).toContain('/projects/testApp/webpack.config.js');
-      expect(tree.files).toContain('/projects/testApp/src/styles.css');
-
-      expect(tree.readContent('/projects/testApp/src/styles.css')).toContain(
-        '@tailwind base;',
+      expect(runner.tasks.length).toBe(1);
+      expect(runner.tasks.some(task => task.name === 'run-schematic')).toBe(
+        true,
       );
-      expect(tree.readContent('/projects/testApp/src/styles.css')).toContain(
-        '@tailwind components;',
-      );
-      expect(tree.readContent('/projects/testApp/src/styles.css')).toContain(
-        '@tailwind utilities;',
-      );
-
-      expect(
-        JSON.parse(tree.readContent('angular.json')).projects.testApp.architect
-          .build.builder,
-      ).toBe('@angular-builders/custom-webpack:browser');
-
-      expect(
-        JSON.parse(tree.readContent('angular.json')).projects.testApp.architect
-          .build.options.customWebpackConfig.path,
-      ).toBe('/projects/testApp/webpack.config.js');
-
-      expect(
-        JSON.parse(tree.readContent('angular.json')).projects.testApp.architect.build
-          .configurations.production.customWebpackConfig.path,
-      ).toBe('/projects/testApp/webpack-prod.config.js');
-
-      expect(
-        JSON.parse(tree.readContent('angular.json')).projects.testApp.architect
-          .serve.builder,
-      ).toBe('@angular-builders/custom-webpack:dev-server');
-
     });
   });
 
-  describe('SCSS', () => {
-    beforeEach(async () => {
-      sourceTree = await runner
-        .runExternalSchematicAsync(
-          '@schematics/angular',
-          'workspace',
-          workspaceOptions,
-        )
-        .toPromise();
-      sourceTree = await runner
-        .runExternalSchematicAsync(
-          '@schematics/angular',
-          'application',
-          { ...appOptions, style: 'scss' },
-          sourceTree,
-        )
-        .toPromise();
-    });
-
-    it('works', () => {
-      const tree = runner.runSchematic(
-        'ng-add',
-        { project: 'testApp' },
-        sourceTree,
-      );
-
-      expect(tree.files).toContain('/projects/testApp/tailwind.config.js');
-      expect(tree.files).toContain('/projects/testApp/webpack-prod.config.js');
-      expect(tree.files).toContain('/projects/testApp/webpack.config.js');
-      expect(tree.files).toContain('/projects/testApp/src/styles.scss');
-
-      expect(tree.readContent('/projects/testApp/src/styles.scss')).toContain(
-        '@tailwind base;',
-      );
-      expect(tree.readContent('/projects/testApp/src/styles.scss')).toContain(
-        '@tailwind components;',
-      );
-      expect(tree.readContent('/projects/testApp/src/styles.scss')).toContain(
-        '@tailwind utilities;',
-      );
-
-      expect(
-        JSON.parse(tree.readContent('angular.json')).projects.testApp.architect
-          .build.builder,
-      ).toBe('@angular-builders/custom-webpack:browser');
-
-      expect(
-        JSON.parse(tree.readContent('angular.json')).projects.testApp.architect
-          .build.options.customWebpackConfig.path,
-      ).toBe('/projects/testApp/webpack.config.js');
-
-      expect(
-        JSON.parse(tree.readContent('angular.json')).projects.testApp.architect.build
-          .configurations.production.customWebpackConfig.path,
-      ).toBe('/projects/testApp/webpack-prod.config.js');
-
-      expect(
-        JSON.parse(tree.readContent('angular.json')).projects.testApp.architect
-          .serve.builder,
-      ).toBe('@angular-builders/custom-webpack:dev-server');
+  describe('when not in an angular workspace', () => {
+    it('should throw', () => {
+      let errorMessage;
+      try {
+        runner.runSchematic('ng-add', {}, Tree.empty());
+      } catch (e) {
+        errorMessage = e.message;
+      }
+      expect(errorMessage).toMatch(/Could not find Angular workspace configuration/);
     });
   });
 });

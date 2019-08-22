@@ -5,6 +5,12 @@
       "description": "Adds tailwindCSS to an Angular project",
       "factory": "./ng-add/index#ngAdd",
       "schema": "./ng-add/schema.json"
+    },
+    "ng-add-setup": {
+      "description": "Setups project before installing dependencies",
+      "factory": "./ng-add-setup/index#ngAddSetup",
+      "private": true,
+      "schema": "./ng-add-setup/schema.json"
     }
   }
 }

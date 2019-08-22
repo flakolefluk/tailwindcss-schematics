@@ -1,13 +1,16 @@
 {
   "name": "tailwind-schematics",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "TailwindCSS schematics for angular",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js"
   },
   "keywords": [
-    "schematics"
+    "schematics",
+    "tailwindCSS",
+    "tailwind",
+    "angular"
   ],
   "author": "",
   "license": "MIT",

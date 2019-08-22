@@ -7,12 +7,8 @@
     "project": {
       "type": "string",
       "description": "The name of the project."
-    },
-    "skipInstall": {
-      "type": "boolean",
-      "description": "Condition to run npm install"
     }
   },
-  "required": [],
-  "additionalProperties": false
+  "required": ["project"],
+  "additionalProperties": true
 }

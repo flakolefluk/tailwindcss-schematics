@@ -1,24 +1,5 @@
 import { Tree, SchematicsException } from '@angular-devkit/schematics';
-
-export interface Workspace {
-  projects: { [name: string]: Project };
-  defaultProject: string;
-}
-
-export interface Project {
-  architect: {
-    build?: any;
-    serve?: any;
-  };
-  schematics?: any;
-  sourceRoot?: string;
-  root?: string;
-}
-
-export interface PackageJson {
-  dependencies?: any;
-  devDependencies?: any;
-}
+import { Workspace, Project, PackageJson } from './models';
 
 export function getWorkspace(tree: Tree): Workspace {
   if (!tree.exists('angular.json')) {
@@ -26,7 +7,7 @@ export function getWorkspace(tree: Tree): Workspace {
       'Could not find Angular workspace configuration',
     );
   }
-  
+
   try {
     return JSON.parse(tree.read(`angular.json`)!.toString()) as Workspace;
   } catch (e) {
@@ -44,11 +25,11 @@ export function getProject(workspace: Workspace, name: string): Project {
   return projects[name];
 }
 
-export function getProjectRoot(project: Project): string {
+export function getProjectSrcRoot(project: Project): string {
   return project.sourceRoot ? `/${project.sourceRoot}` : `/${project.root}/src`;
 }
 
-export function getProjectStylesFormat(project: Project) {
+export function getProjectStylesExt(project: Project) {
   if (
     project.schematics &&
     project.schematics['@schematics/angular:component']
