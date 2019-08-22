@@ -82,7 +82,7 @@ function updatePackageJson(pkgJson: PackageJson): Rule {
         builderVersion.indexOf('.') + 1,
         builderVersion.lastIndexOf('.'),
       );
-      customBuilderVersion = `~${partialVersion[0]}${partialVersion[2]}.0`;
+      customBuilderVersion = `~${partialVersion[0]}.${partialVersion[2]}.0`;
     }
 
     pkgJson.devDependencies['@angular-builders/custom-webpack'] =
