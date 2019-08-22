@@ -1,5 +1,5 @@
 {
-  "name": "tailwind-schematics",
+  "name": "@flakolefluk/tailwind-schematics",
   "version": "0.0.1",
   "description": "TailwindCSS schematics for angular",
   "scripts": {
@@ -25,5 +25,12 @@
   },
   "devDependencies": {
     "@schematics/angular": "^8.2.2"
+  },
+  "repository" : {
+    "type" : "git",
+    "url": "ssh://git@github.com:flakolefluk/tailwindcss-schematics.git"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
   }
 }
