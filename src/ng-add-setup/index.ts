@@ -82,6 +82,10 @@ function updatePackageJson(pkgJson: PackageJson): Rule {
         builderVersion.indexOf('.') + 1,
         builderVersion.lastIndexOf('.'),
       );
+
+    if(parseInt(partialVersion, 10)>=802){
+      customBuilderVersion = '~8.2.0'
+    } else
       customBuilderVersion = `~${partialVersion[0]}.${partialVersion[2]}.0`;
     }
 

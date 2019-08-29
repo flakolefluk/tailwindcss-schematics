@@ -1,6 +1,6 @@
 {
   "name": "@flakolefluk/tailwind-schematics",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "TailwindCSS schematics for angular",
   "scripts": {
     "build": "tsc -p tsconfig.json",
