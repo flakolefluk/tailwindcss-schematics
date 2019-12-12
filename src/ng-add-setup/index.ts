@@ -83,8 +83,8 @@ function updatePackageJson(pkgJson: PackageJson): Rule {
         builderVersion.lastIndexOf('.'),
       );
 
-    if(parseInt(partialVersion, 10)>=802){
-      customBuilderVersion = '~8.2.0'
+    if(parseInt(partialVersion, 10)>=801){
+      customBuilderVersion = '~8.4.1'
     } else
       customBuilderVersion = `~${partialVersion[0]}.${partialVersion[2]}.0`;
     }
@@ -98,10 +98,10 @@ function updatePackageJson(pkgJson: PackageJson): Rule {
       builderVersion || '~0.800.0';
 
     pkgJson.devDependencies['@fullhuman/postcss-purgecss'] =
-      pkgJson.devDependencies['@fullhuman/postcss-purgecss'] || '~1.2.0';
+      pkgJson.devDependencies['@fullhuman/postcss-purgecss'] || '~1.3.0';
 
     pkgJson.devDependencies['tailwindcss'] =
-      pkgJson.devDependencies['tailwindcss'] || '~1.1.2';
+      pkgJson.devDependencies['tailwindcss'] || '~1.1.4';
 
     tree.overwrite('package.json', JSON.stringify(pkgJson, null, 2));
 
