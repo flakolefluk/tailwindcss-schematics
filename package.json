@@ -12,6 +12,9 @@
     "tailwind",
     "angular"
   ],
+  "ng-add":{
+    "save": false
+  },
   "author": "",
   "license": "MIT",
   "schematics": "./src/collection.json",
