@@ -12,25 +12,25 @@
     "tailwind",
     "angular"
   ],
-  "ng-add":{
+  "ng-add": {
     "save": false
   },
   "author": "Ignacio Falk",
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^8.1.1",
-    "@angular-devkit/schematics": "^8.1.1",
-    "@types/jasmine": "^3.3.9",
-    "@types/node": "^8.0.31",
-    "jasmine": "^3.3.1",
-    "typescript": "~3.4.3"
+    "@angular-devkit/core": "^8.3.20",
+    "@angular-devkit/schematics": "^8.3.20",
+    "jasmine": "^3.5.0",
+    "typescript": "~3.7.3"
   },
   "devDependencies": {
-    "@schematics/angular": "^8.2.2"
+    "@schematics/angular": "^8.3.20",
+    "@types/jasmine": "^3.5.0",
+    "@types/node": "^12.12.17"
   },
-  "repository" : {
-    "type" : "git",
+  "repository": {
+    "type": "git",
     "url": "ssh://git@github.com:flakolefluk/tailwindcss-schematics.git"
   },
   "bugs": {
