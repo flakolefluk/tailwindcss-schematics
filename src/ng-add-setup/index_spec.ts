@@ -60,9 +60,9 @@ describe('ng-add-setup', () => {
 
       const stylesFile = tree.readContent('/projects/testApp/src/styles.css');
 
-      expect(stylesFile).toContain('@import "~tailwindcss/dist/base.css";');
-      expect(stylesFile).toContain('@import "~tailwindcss/dist/components.css";');
-      expect(stylesFile).toContain('@import "~tailwind/dist/utilities.css";');
+      expect(stylesFile).toContain('@tailwind base;');
+      expect(stylesFile).toContain('@tailwind components;');
+      expect(stylesFile).toContain('@tailwind utilities;');
 
       const workspace = JSON.parse(tree.readContent('angular.json'));
       const app = workspace.projects.testApp;
@@ -118,9 +118,9 @@ describe('ng-add-setup', () => {
 
       const stylesFile = tree.readContent('/projects/testApp/src/styles.scss');
 
-      expect(stylesFile).toContain('@import "~tailwindcss/dist/base.css";');
-      expect(stylesFile).toContain('@import "~tailwindcss/dist/components.css";');
-      expect(stylesFile).toContain('@import "~tailwind/dist/utilities.css";')
+      expect(stylesFile).toContain('@tailwind base;');
+      expect(stylesFile).toContain('@tailwind components;');
+      expect(stylesFile).toContain('@tailwind utilities;');
 
       const workspace = JSON.parse(tree.readContent('angular.json'));
       const app = workspace.projects.testApp;
