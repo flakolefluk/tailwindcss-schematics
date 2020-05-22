@@ -120,9 +120,9 @@ function updateStylesFile(projectSrcRoot: string, stylesExt: string): Rule {
     const fileContent = file.toString();
 
     const imports = [
-      '@tailwind base;',
-      '@tailwind components;',
-      '@tailwind utilities;',
+      '@import "~tailwindcss/dist/base.css";',
+      '@import "~tailwindcss/dist/components.css";',
+      '@import "~tailwind/dist/utilities.css";',
     ];
 
     const recorder = tree.beginUpdate(`${projectSrcRoot}/styles.${stylesExt}`);
